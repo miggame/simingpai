@@ -1,0 +1,31 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "inAir",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.08333333333333333,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "2b0d1ce5-83b1-4d33-8924-5f7ecf95746f"
+            }
+          },
+          {
+            "frame": 0.06666666666666667,
+            "value": {
+              "__uuid__": "ed121e5c-3c5a-472f-b184-4574d3ec1c1f"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}
