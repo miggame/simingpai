@@ -111,9 +111,9 @@
       "y": 0
     },
     "_angularVelocity": 0,
-    "_fixedRotation": false,
+    "_fixedRotation": true,
     "enabledContactListener": true,
-    "bullet": false
+    "bullet": true
   },
   {
     "__type__": "cc.PhysicsBoxCollider",
@@ -132,12 +132,12 @@
     "_offset": {
       "__type__": "cc.Vec2",
       "x": 25,
-      "y": 20
+      "y": 18.3
     },
     "_size": {
       "__type__": "cc.Size",
       "width": 50,
-      "height": 40
+      "height": 36.7
     }
   },
   {

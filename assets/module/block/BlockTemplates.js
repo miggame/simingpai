@@ -1,5 +1,5 @@
 module.exports = {
-    templateList:[
+    templateList: [
         {
             id: 1,
             textureName: 'Block2_55X50.png'
@@ -74,10 +74,10 @@ module.exports = {
         },
     ],
 
-    getBlockNameById(id){
-        console.log('id: ', id);
+    getBlockNameById(id) {
+        // console.log('id: ', id);
         for (const item of this.templateList) {
-            if(id === item.id){
+            if (id === item.id) {
                 return item.textureName.split('.')[0];
             }
         }
