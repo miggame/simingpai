@@ -17,7 +17,7 @@
         "__id__": 2
       },
       {
-        "__id__": 9
+        "__id__": 12
       },
       {
         "__id__": 8
@@ -222,7 +222,7 @@
     },
     "_stageData": null,
     "blockLayer": {
-      "__id__": 9
+      "__id__": 12
     }
   },
   {
@@ -234,7 +234,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "e4f4b1e7-49d5-48a0-bc23-65af55fd89ef"
+      "__uuid__": "f68daaae-5ef3-45a9-be59-e0ff711adb9a"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -266,6 +266,15 @@
     "_components": [
       {
         "__id__": 7
+      },
+      {
+        "__id__": 9
+      },
+      {
+        "__id__": 10
+      },
+      {
+        "__id__": 11
       }
     ],
     "_prefab": null,
@@ -281,13 +290,13 @@
     "_cascadeOpacityEnabled": true,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
+      "x": 0,
+      "y": 0
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
-      "height": 86
+      "width": 58,
+      "height": 82
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -304,6 +313,84 @@
     "_globalZOrder": 0,
     "_opacityModifyRGB": false,
     "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Animation",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 8
+    },
+    "_enabled": true,
+    "_defaultClip": {
+      "__uuid__": "89b77be2-ad39-45ba-9004-11244f015769"
+    },
+    "_clips": [
+      {
+        "__uuid__": "89b77be2-ad39-45ba-9004-11244f015769"
+      },
+      {
+        "__uuid__": "c0315c28-bd66-43df-ad8e-2b963df79c3a"
+      },
+      {
+        "__uuid__": "ce87185d-0060-415c-822f-cf78552d951d"
+      },
+      {
+        "__uuid__": "91cf6a02-9aa9-4655-9e5b-7b0b519a10c3"
+      },
+      {
+        "__uuid__": "f99ceba4-291b-428e-87e4-26bca0aaf3dd"
+      }
+    ],
+    "playOnLoad": true
+  },
+  {
+    "__type__": "cc.RigidBody",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 8
+    },
+    "_enabled": true,
+    "_type": 2,
+    "_allowSleep": true,
+    "_gravityScale": 1,
+    "_linearDamping": 0,
+    "_angularDamping": 0,
+    "_linearVelocity": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_angularVelocity": 0,
+    "_fixedRotation": true,
+    "enabledContactListener": true,
+    "bullet": false
+  },
+  {
+    "__type__": "cc.PhysicsBoxCollider",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 8
+    },
+    "_enabled": true,
+    "tag": 0,
+    "_density": 1,
+    "_sensor": false,
+    "_friction": 0.2,
+    "_restitution": 0,
+    "body": null,
+    "_offset": {
+      "__type__": "cc.Vec2",
+      "x": 30,
+      "y": 39
+    },
+    "_size": {
+      "__type__": "cc.Size",
+      "width": 29,
+      "height": 77
+    }
   },
   {
     "__type__": "cc.Node",
