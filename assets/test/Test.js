@@ -44,7 +44,7 @@ cc.Class({
 
         this.touchLayer.on('touchstart', this._changeGravity, this);
 
-        Util.loadJsonFile('data/json/stageData/Stage1', this._initBlock, this);
+        Util.loadJsonFile('data/json/stageData/Stage2', this._initBlock, this);
         this.spPlayer.node.position = cc.p(50, 320);
         // this._speed = GameData.runSpeed['RunningMan'];
     },
