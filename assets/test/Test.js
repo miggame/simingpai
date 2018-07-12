@@ -12,7 +12,7 @@ cc.Class({
         _stageData: null,
         // _speed: null,
         blockLayer: { displayName: 'blockLayer', default: null, type: cc.Node },
-        pNode:cc.Node,
+        // pNode: cc.Node,
         physicsPre: { displayName: 'physicsPre', default: null, type: cc.Prefab },
         physicsLayer: { displayName: 'physicsLayer', default: null, type: cc.Node },
     },
@@ -47,12 +47,11 @@ cc.Class({
 
         this.touchLayer.on('touchstart', this._changeGravity, this);
 
-        Util.loadJsonFile('data/json/stageData/Stage2', this._initBlock, this);
+        Util.loadJsonFile('data/json/stageData/Stage1', this._initBlock, this);
         Util.loadJsonFile('data/json/stageShapeData/stageShape1', this._initPhysics, this);
         this.spPlayer.node.position = cc.p(50, 320);
-        // this._speed = GameData.runSpeed['RunningMan'];
-        console.log(this.pNode.getComponent(cc.PhysicsPolygonCollider));
-        
+
+
     },
 
     start() {
@@ -95,29 +94,44 @@ cc.Class({
         cc.director.getPhysicsManager().gravity = GameData.gravity;
     },
 
-    _initPhysics(results){
-        // console.log('result: ', results);
-        let totalArr = [];
-        for (const key in results) {
-            if (results.hasOwnProperty(key)) {
-                const element = results[key];
-                console.log('element: ', element);
-                let len = element.length/2;
+    _initPhysics(results) {
+        let data = results.physics;
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+                const element = data[key];
+                let len = element.length / 2;
                 let arr = [];
-                for(let i = 0;i<len;++i){
-                    let x = element[2*i];
-                    let y = element[2*i+1];
+                for (let i = 0; i < len; ++i) {
+                    let x = element[2 * i];
+                    let y = element[2 * i + 1];
                     arr.push(cc.p(x, y));
                 }
-                // totalArr.push(arr);
+                // console.log(arr);
                 this._createPhysicsNode(arr);
+                // totalArr.push(arr);
             }
         }
+        // console.log('totalArr: ', totalArr);
+        // for (let i = 0; i < 2; ++i) {
+        //     this._createPhysicsNode(totalArr[i]);
+        // }
+        // this._createPhysicsNode(totalArr[1]);
     },
 
-    _createPhysicsNode(arr){
-        let physicsNode = cc.instantiate(this.physicsPre);
+    _createPhysicsNode(arr) {
+        // let physicsNode = cc.instantiate(this.physicsPre);
+        // this.physicsLayer.addChild(physicsNode);
+        // physicsNode.getComponent(cc.PhysicsPolygonCollider).points = arr;
+        // physicsNode.getComponent(cc.PhysicsPolygonCollider).apply();
+        // console.log(physicsNode);
+        let physicsNode = new cc.Node();
         this.physicsLayer.addChild(physicsNode);
+        physicsNode.addComponent(cc.RigidBody);
+        physicsNode.addComponent(cc.PhysicsPolygonCollider);
+        physicsNode.getComponent(cc.RigidBody).type = 0;
         physicsNode.getComponent(cc.PhysicsPolygonCollider).points = arr;
+        physicsNode.getComponent(cc.PhysicsPolygonCollider).apply();
+        // collider.apply();
+
     }
 });

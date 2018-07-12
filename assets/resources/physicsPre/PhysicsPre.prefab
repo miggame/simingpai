@@ -39,8 +39,8 @@
     "_cascadeOpacityEnabled": true,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 0.5,
+      "y": 0.5
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -97,7 +97,7 @@
     "tag": 0,
     "_density": 1,
     "_sensor": false,
-    "_friction": 0.2,
+    "_friction": 0,
     "_restitution": 0,
     "body": null,
     "_offset": {
@@ -108,33 +108,23 @@
     "points": [
       {
         "__type__": "cc.Vec2",
-        "x": 1149,
-        "y": 187
+        "x": 76,
+        "y": 405
       },
       {
         "__type__": "cc.Vec2",
-        "x": 1149,
-        "y": 152
+        "x": 266,
+        "y": 405
       },
       {
         "__type__": "cc.Vec2",
-        "x": 1161,
-        "y": 150
+        "x": 266,
+        "y": 440
       },
       {
         "__type__": "cc.Vec2",
-        "x": 1241,
-        "y": 150
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 1241,
-        "y": 185
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 1229,
-        "y": 187
+        "x": 76,
+        "y": 440
       }
     ]
   },
@@ -144,7 +134,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "422ff5fd-5e74-4b29-a926-6bf508b66e20"
     },
     "fileId": "90o8TxijBARqHX9VCJYIen",
     "sync": false
