@@ -3,6 +3,7 @@ let UIMgr = require('UIMgr');
 let Util = require('Util');
 let BlockTemmplates = require('BlockTemplates');
 let GameData = require('GameData');
+let FSMMgr = require('FSMMgr');
 cc.Class({
     extends: Observer,
 
@@ -10,11 +11,12 @@ cc.Class({
         spPlayer: { displayName: 'spPlayerk', default: null, type: cc.Sprite },
         touchLayer: { displayName: 'touchLayer', default: null, type: cc.Node },
         _stageData: null,
-        // _speed: null,
+      
         blockLayer: { displayName: 'blockLayer', default: null, type: cc.Node },
-        // pNode: cc.Node,
+     
         physicsPre: { displayName: 'physicsPre', default: null, type: cc.Prefab },
         physicsLayer: { displayName: 'physicsLayer', default: null, type: cc.Node },
+        _fsmMgr: null
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -30,12 +32,12 @@ cc.Class({
         this._initMsg();
 
         cc.director.getPhysicsManager().enabled = true;
-        cc.director.getPhysicsManager().debugDrawFlags = cc.PhysicsManager.DrawBits.e_aabbBit |
-            cc.PhysicsManager.DrawBits.e_pairBit |
-            cc.PhysicsManager.DrawBits.e_centerOfMassBit |
-            cc.PhysicsManager.DrawBits.e_jointBit |
-            cc.PhysicsManager.DrawBits.e_shapeBit
-            ;
+        // cc.director.getPhysicsManager().debugDrawFlags = cc.PhysicsManager.DrawBits.e_aabbBit |
+        //     cc.PhysicsManager.DrawBits.e_pairBit |
+        //     cc.PhysicsManager.DrawBits.e_centerOfMassBit |
+        //     cc.PhysicsManager.DrawBits.e_jointBit |
+        //     cc.PhysicsManager.DrawBits.e_shapeBit
+        //     ;
         cc.director.getPhysicsManager().gravity = GameData.gravity;
 
         // this.touchLayer.on('touchstart', function (event) {
@@ -51,6 +53,7 @@ cc.Class({
         Util.loadJsonFile('data/json/stageShapeData/stageShape1', this._initPhysics, this);
         this.spPlayer.node.position = cc.p(50, 320);
 
+        this._fsmMgr = FSMMgr.createFSM();
 
     },
 
@@ -92,6 +95,18 @@ cc.Class({
         console.log('changeGravity');
         GameData.gravity.y = -GameData.gravity.y;
         cc.director.getPhysicsManager().gravity = GameData.gravity;
+        this._playAnim();
+    },
+
+    _playAnim(){
+        UIMgr.playAnimArr(this.spPlayer, ['jump', 'roll', 'down'], () => { 
+            if(this.spPlayer.node.anchorY === 0){
+                this.spPlayer.node.anchorY = 1;
+            } else {
+                this.spPlayer.node.anchorY = 0;
+            }
+            this.spPlayer.node.scaleY = -this.spPlayer.node.scaleY;
+        });
     },
 
     _initPhysics(results) {
@@ -132,6 +147,9 @@ cc.Class({
         physicsNode.getComponent(cc.PhysicsPolygonCollider).points = arr;
         physicsNode.getComponent(cc.PhysicsPolygonCollider).apply();
         // collider.apply();
+    },
+
+    _refreshAnim(){
 
     }
 });

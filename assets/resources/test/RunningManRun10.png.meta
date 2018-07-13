@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "674253e2-f31e-4d58-bac5-52cdb25c5614",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "RunningManRun10": {
+      "ver": "1.0.3",
+      "uuid": "f51146cf-67ad-4fc9-a805-f5f68fb510f5",
+      "rawTextureUuid": "674253e2-f31e-4d58-bac5-52cdb25c5614",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -7.5,
+      "offsetY": 7.5,
+      "trimX": 8,
+      "trimY": 8,
+      "width": 65,
+      "height": 77,
+      "rawWidth": 96,
+      "rawHeight": 108,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

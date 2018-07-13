@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "79aad369-b6d8-4e43-8b92-036be28e2664",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "RunningManRoll1": {
+      "ver": "1.0.3",
+      "uuid": "07df5ac4-000d-4eba-9fb5-e7c2f637d3fc",
+      "rawTextureUuid": "79aad369-b6d8-4e43-8b92-036be28e2664",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -0.5,
+      "offsetY": -3,
+      "trimX": 18,
+      "trimY": 18,
+      "width": 48,
+      "height": 66,
+      "rawWidth": 85,
+      "rawHeight": 96,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
