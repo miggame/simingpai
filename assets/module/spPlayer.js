@@ -1,5 +1,6 @@
 let Observer = require('Observer');
 let ObserverMgr = require('ObserverMgr');
+
 cc.Class({
     extends: Observer,
 
@@ -29,14 +30,17 @@ cc.Class({
     // 只在两个碰撞体开始接触时被调用一次
     onBeginContact(contact, selfCollider, otherCollider) {
         this._collider = true;
-        console.log("1:", this._collider);
-        // ObserverMgr.dispatchMsg(GameLocalMsg.Msg.Run, null);
+        let normal = contact.getWorldManifold().normal;
+
+        let data = normal.y;
+        if(data === 1 || data === -1){
+            ObserverMgr.dispatchMsg(GameLocalMsg.Msg.Run, data);
+        }
     },
 
     // 只在两个碰撞体结束接触时被调用一次
     onEndContact(contact, selfCollider, otherCollider) {
         this._collider = false;
-        console.log("2:", this._collider);
     },
 
     // 每次将要处理碰撞体接触逻辑时被调用

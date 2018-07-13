@@ -3,7 +3,7 @@ let UIMgr = require('UIMgr');
 let Util = require('Util');
 let BlockTemmplates = require('BlockTemplates');
 let GameData = require('GameData');
-let FSMMgr = require('FSMMgr');
+// let FSMMgr = require('FSMMgr');
 cc.Class({
     extends: Observer,
 
@@ -21,39 +21,45 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
     _getMsgList() {
-        return [];
+        return [
+            GameLocalMsg.Msg.Run,
+        ];
     },
 
     _onMsg(msg, data) {
-
+        if(msg === GameLocalMsg.Msg.Run){
+            console.log('run');
+            if(data === 1){
+                UIMgr.playAnimArr(this.spPlayer, ['run'], () => { 
+                    this.spPlayer.node.anchor = cc.p(0, 1);
+                    this.spPlayer.node.scaleY = -this.spPlayer.node.scaleY;
+                });
+            } else if(data === -1){
+                UIMgr.playAnimArr(this.spPlayer, ['run'], () => { 
+                    this.spPlayer.node.anchor = cc.p(0, 0);
+                    this.spPlayer.node.scaleY = -this.spPlayer.node.scaleY;
+                });
+            }
+        }
     },
 
     onLoad() {
         this._initMsg();
 
         cc.director.getPhysicsManager().enabled = true;
-        // cc.director.getPhysicsManager().debugDrawFlags = cc.PhysicsManager.DrawBits.e_aabbBit |
-        //     cc.PhysicsManager.DrawBits.e_pairBit |
-        //     cc.PhysicsManager.DrawBits.e_centerOfMassBit |
-        //     cc.PhysicsManager.DrawBits.e_jointBit |
-        //     cc.PhysicsManager.DrawBits.e_shapeBit
-        //     ;
+        cc.director.getPhysicsManager().debugDrawFlags = cc.PhysicsManager.DrawBits.e_aabbBit |
+            cc.PhysicsManager.DrawBits.e_pairBit |
+            cc.PhysicsManager.DrawBits.e_centerOfMassBit |
+            cc.PhysicsManager.DrawBits.e_jointBit |
+            cc.PhysicsManager.DrawBits.e_shapeBit
+            ;
         cc.director.getPhysicsManager().gravity = GameData.gravity;
-
-        // this.touchLayer.on('touchstart', function (event) {
-        //     // this.spPlayer.node.getComponent(cc.Animation).play('jump');
-        //     UIMgr.playAnimArr(this.spPlayer, ['jump', 'roll', 'down'], () => {
-        //         // this.spPlayer.node.scaleY = -this.spPlayer.node.scaleY;
-        //     });
-        // }.bind(this));
 
         this.touchLayer.on('touchstart', this._changeGravity, this);
 
         Util.loadJsonFile('data/json/stageData/Stage1', this._initBlock, this);
         Util.loadJsonFile('data/json/stageShapeData/stageShape1', this._initPhysics, this);
         this.spPlayer.node.position = cc.p(50, 320);
-
-        this._fsmMgr = FSMMgr.createFSM();
 
     },
 
@@ -66,6 +72,7 @@ cc.Class({
         let speed = body.linearVelocity;
         speed.x = GameData.runSpeed['RunningMan'] * dt;
         body.linearVelocity = speed;
+        
     },
 
     _initBlock(results) {
@@ -95,10 +102,7 @@ cc.Class({
         console.log('changeGravity');
         GameData.gravity.y = -GameData.gravity.y;
         cc.director.getPhysicsManager().gravity = GameData.gravity;
-        this._playAnim();
-    },
 
-    _playAnim(){
         UIMgr.playAnimArr(this.spPlayer, ['jump', 'roll', 'down'], () => { 
             if(this.spPlayer.node.anchorY === 0){
                 this.spPlayer.node.anchorY = 1;
@@ -108,6 +112,7 @@ cc.Class({
             this.spPlayer.node.scaleY = -this.spPlayer.node.scaleY;
         });
     },
+
 
     _initPhysics(results) {
         let data = results.physics;
@@ -121,16 +126,9 @@ cc.Class({
                     let y = element[2 * i + 1];
                     arr.push(cc.p(x, y));
                 }
-                // console.log(arr);
                 this._createPhysicsNode(arr);
-                // totalArr.push(arr);
             }
         }
-        // console.log('totalArr: ', totalArr);
-        // for (let i = 0; i < 2; ++i) {
-        //     this._createPhysicsNode(totalArr[i]);
-        // }
-        // this._createPhysicsNode(totalArr[1]);
     },
 
     _createPhysicsNode(arr) {
@@ -146,10 +144,5 @@ cc.Class({
         physicsNode.getComponent(cc.RigidBody).type = 0;
         physicsNode.getComponent(cc.PhysicsPolygonCollider).points = arr;
         physicsNode.getComponent(cc.PhysicsPolygonCollider).apply();
-        // collider.apply();
     },
-
-    _refreshAnim(){
-
-    }
 });
