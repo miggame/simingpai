@@ -11,9 +11,9 @@ cc.Class({
         spPlayer: { displayName: 'spPlayerk', default: null, type: cc.Sprite },
         touchLayer: { displayName: 'touchLayer', default: null, type: cc.Node },
         _stageData: null,
-      
+
         blockLayer: { displayName: 'blockLayer', default: null, type: cc.Node },
-     
+
         physicsPre: { displayName: 'physicsPre', default: null, type: cc.Prefab },
         physicsLayer: { displayName: 'physicsLayer', default: null, type: cc.Node },
         _fsmMgr: null
@@ -27,25 +27,19 @@ cc.Class({
     },
 
     _onMsg(msg, data) {
-        if(msg === GameLocalMsg.Msg.Run){
+        if (msg === GameLocalMsg.Msg.Run) {
             console.log('run');
-            if(data === 1){
-                UIMgr.playAnimArr(this.spPlayer, ['run'], () => { 
-                    this.spPlayer.node.anchor = cc.p(0, 1);
-                    this.spPlayer.node.scaleY = -this.spPlayer.node.scaleY;
-                });
-            } else if(data === -1){
-                UIMgr.playAnimArr(this.spPlayer, ['run'], () => { 
-                    this.spPlayer.node.anchor = cc.p(0, 0);
-                    this.spPlayer.node.scaleY = -this.spPlayer.node.scaleY;
-                });
+            if (data === 1) {
+
+            } else if (data === -1) {
+
             }
         }
     },
 
     onLoad() {
         this._initMsg();
-
+        this._state = GameData.state.CenterToDown;
         cc.director.getPhysicsManager().enabled = true;
         cc.director.getPhysicsManager().debugDrawFlags = cc.PhysicsManager.DrawBits.e_aabbBit |
             cc.PhysicsManager.DrawBits.e_pairBit |
@@ -55,12 +49,17 @@ cc.Class({
             ;
         cc.director.getPhysicsManager().gravity = GameData.gravity;
 
-        this.touchLayer.on('touchstart', this._changeGravity, this);
+        this.touchLayer.on('touchend', this._changeGravity, this);
 
         Util.loadJsonFile('data/json/stageData/Stage1', this._initBlock, this);
         Util.loadJsonFile('data/json/stageShapeData/stageShape1', this._initPhysics, this);
         this.spPlayer.node.position = cc.p(50, 320);
 
+        // this._body = this.spPlayer.node.getComponent(cc.RigidBody);
+        // this._body._registerNodeEvents();
+        // this.spPlayer.node.on('rotation-changed', function () {
+        //     this._body.syncPosition(false)
+        // }.bind(this));
     },
 
     start() {
@@ -72,7 +71,7 @@ cc.Class({
         let speed = body.linearVelocity;
         speed.x = GameData.runSpeed['RunningMan'] * dt;
         body.linearVelocity = speed;
-        
+
     },
 
     _initBlock(results) {
@@ -103,16 +102,12 @@ cc.Class({
         GameData.gravity.y = -GameData.gravity.y;
         cc.director.getPhysicsManager().gravity = GameData.gravity;
 
-        UIMgr.playAnimArr(this.spPlayer, ['jump', 'roll', 'down'], () => { 
-            if(this.spPlayer.node.anchorY === 0){
-                this.spPlayer.node.anchorY = 1;
-            } else {
-                this.spPlayer.node.anchorY = 0;
-            }
-            this.spPlayer.node.scaleY = -this.spPlayer.node.scaleY;
+        // UIMgr.playAnim(this.spPlayer, 'roll');
+        UIMgr.playAnim(this.spPlayer, ['jump', 'roll'], 0, function (event) {
+            console.log('done');
         });
-    },
 
+    },
 
     _initPhysics(results) {
         let data = results.physics;
@@ -132,11 +127,7 @@ cc.Class({
     },
 
     _createPhysicsNode(arr) {
-        // let physicsNode = cc.instantiate(this.physicsPre);
-        // this.physicsLayer.addChild(physicsNode);
-        // physicsNode.getComponent(cc.PhysicsPolygonCollider).points = arr;
-        // physicsNode.getComponent(cc.PhysicsPolygonCollider).apply();
-        // console.log(physicsNode);
+
         let physicsNode = new cc.Node();
         this.physicsLayer.addChild(physicsNode);
         physicsNode.addComponent(cc.RigidBody);

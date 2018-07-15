@@ -9,4 +9,10 @@ module.exports = {
         'BaoBao': 8000
     },
     gravity: cc.p(0, -640),
+    state: {
+        CenterToDown: 'CenterToDown',
+        Down: 'Down',
+        Up: 'Up',
+        CenterToUp: 'CenterToUp'
+    }
 }

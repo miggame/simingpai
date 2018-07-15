@@ -9,19 +9,19 @@ cc.Class({
     },
 
     // LIFE-CYCLE CALLBACKS:
-    _getMsgList(){
+    _getMsgList() {
         return [];
     },
 
-    _onMsg(msg, data){
+    _onMsg(msg, data) {
 
     },
-    onLoad () {
+    onLoad() {
         this._initMsg();
         this._collider = false;
     },
 
-    start () {
+    start() {
 
     },
 
@@ -29,11 +29,12 @@ cc.Class({
 
     // 只在两个碰撞体开始接触时被调用一次
     onBeginContact(contact, selfCollider, otherCollider) {
+        console.log('开始');
         this._collider = true;
         let normal = contact.getWorldManifold().normal;
 
         let data = normal.y;
-        if(data === 1 || data === -1){
+        if (data === 1 || data === -1) {
             ObserverMgr.dispatchMsg(GameLocalMsg.Msg.Run, data);
         }
     },
@@ -41,6 +42,7 @@ cc.Class({
     // 只在两个碰撞体结束接触时被调用一次
     onEndContact(contact, selfCollider, otherCollider) {
         this._collider = false;
+        console.log('结束');
     },
 
     // 每次将要处理碰撞体接触逻辑时被调用
