@@ -104,7 +104,7 @@ cc.Class({
 
         // UIMgr.playAnim(this.spPlayer, 'roll');
         UIMgr.playAnim(this.spPlayer, ['jump', 'roll'], 0, function (event) {
-            console.log('done');
+            // console.log('done');
         });
 
     },
