@@ -1,7 +1,10 @@
 module.exports = {
 
-    playAnim(sprite, arr, index = 0, cb = undefined) {
+    playAnim(sprite, arr, index, cb) {
+        
         let animation = sprite.node.getComponent(cc.Animation);
+        // animation.stop();
+        animation.off('finished');
         animation.play(arr[index]);
         let event = {
             'sprite': sprite,
@@ -13,22 +16,19 @@ module.exports = {
     },
 
     _onFinished(event){
+     
         let sprite = event.sprite;
         let arr = event.arr;
         let index = event.index;
         let cb = event.cb;
-        sprite.node.getComponent(cc.Animation).off('finished');
         index++;
+        
         if(index>=arr.length){
-            if(cb!==null || cb!==undefined){
-                cb();
-                return;
-            } else {
-                return;
-            }
+            cb();
         } else {
             this.playAnim(sprite, arr, index, cb);
         }
+
     }
 
 

@@ -10,9 +10,6 @@ module.exports = {
     },
     gravity: cc.p(0, -640),
     state: {
-        CenterToDown: 'CenterToDown',
-        Down: 'Down',
-        Up: 'Up',
-        CenterToUp: 'CenterToUp'
+        Down: 'down'
     }
 }

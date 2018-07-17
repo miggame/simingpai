@@ -32,7 +32,6 @@ cc.Class({
     
         this._collider = true;
         let normal = contact.getWorldManifold().normal;
-
         let data = normal.y;
         if (data === 1 || data === -1) {
             ObserverMgr.dispatchMsg(GameLocalMsg.Msg.Run, data);
@@ -43,6 +42,11 @@ cc.Class({
     onEndContact(contact, selfCollider, otherCollider) {
         this._collider = false;
         console.log('结束');
+        let normal = contact.getWorldManifold().normal;
+        let data = normal.y;
+        if (data === 1 || data === -1) {
+            ObserverMgr.dispatchMsg(GameLocalMsg.Msg.Down, data);
+        }
     },
 
     // 每次将要处理碰撞体接触逻辑时被调用

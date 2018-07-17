@@ -23,23 +23,30 @@ cc.Class({
     _getMsgList() {
         return [
             GameLocalMsg.Msg.Run,
+            GameLocalMsg.Msg.Down
         ];
     },
 
     _onMsg(msg, data) {
         if (msg === GameLocalMsg.Msg.Run) {
-            
-            if (data === 1) {
+            if(data === -1){
+                this._state = GameData.state.Down;
+                UIMgr.playAnim(this.spPlayer, ['run'], 0, function(){
 
-            } else if (data === -1) {
+                }.bind(this));
+            } else if(data === 1){
+                this._state = GameData.state.Up;
+                UIMgr.playAnim(this.spPlayer, ['run'], 0, function(){
 
+                }.bind(this));
             }
         }
     },
 
     onLoad() {
         this._initMsg();
-        this._state = GameData.state.CenterToDown;
+        // this._state = GameData.state.CenterToDown;
+        // this.spPlayer.node.scaleY = 1;
         cc.director.getPhysicsManager().enabled = true;
         cc.director.getPhysicsManager().debugDrawFlags = cc.PhysicsManager.DrawBits.e_aabbBit |
             cc.PhysicsManager.DrawBits.e_pairBit |
@@ -54,12 +61,6 @@ cc.Class({
         Util.loadJsonFile('data/json/stageData/Stage1', this._initBlock, this);
         Util.loadJsonFile('data/json/stageShapeData/stageShape1', this._initPhysics, this);
         this.spPlayer.node.position = cc.p(50, 320);
-
-        // this._body = this.spPlayer.node.getComponent(cc.RigidBody);
-        // this._body._registerNodeEvents();
-        // this.spPlayer.node.on('rotation-changed', function () {
-        //     this._body.syncPosition(false)
-        // }.bind(this));
     },
 
     start() {
@@ -76,7 +77,7 @@ cc.Class({
 
     _initBlock(results) {
         this._stageData = results;
-        console.log(this._stageData);
+        
         this.blockLayer.destroyAllChildren();
         let arr = this._stageData.blockList;
         for (const item of arr) {
@@ -102,21 +103,17 @@ cc.Class({
         GameData.gravity.y = -GameData.gravity.y;
         cc.director.getPhysicsManager().gravity = GameData.gravity;
 
-        UIMgr.playAnim(this.spPlayer, ['jump', 'roll', 'down'], 0, function (event) {
-            console.log('hh');
-        });
-
-        // let callBack1 = cc.callFunc(function(){
-        //     this.spPlayer.node.getComponent(cc.Animation).play('jump');
-        //     console.log('1');
-        // }.bind(this), this);
-        // let callBack2 = cc.callFunc(function(){
-        //     this.spPlayer.node.getComponent(cc.Animation).play('roll');
-        //     console.log('2');
-        // }.bind(this), this);
-        // this.spPlayer.node.runAction(cc.sequence(callBack1, callBack2));
-        // this.spPlayer.node.runAction(callBack1);
-
+        if(this._state === GameData.state.Down){
+            UIMgr.playAnim(this.spPlayer, ['jump', 'roll', 'down'], 0, function(){
+                this.spPlayer.node.scaleY = -this.spPlayer.node.scaleY;
+                this.spPlayer.node.anchorY = 1;
+            }.bind(this));
+        } else if(this._state === GameData.state.Up){
+            UIMgr.playAnim(this.spPlayer, ['jump', 'roll', 'down'], 0, function(){
+                this.spPlayer.node.scaleY = -this.spPlayer.node.scaleY;
+                this.spPlayer.node.anchorY = 0;
+            }.bind(this));
+        }
     },
 
     _initPhysics(results) {
@@ -137,7 +134,6 @@ cc.Class({
     },
 
     _createPhysicsNode(arr) {
-
         let physicsNode = new cc.Node();
         this.physicsLayer.addChild(physicsNode);
         physicsNode.addComponent(cc.RigidBody);
@@ -146,4 +142,5 @@ cc.Class({
         physicsNode.getComponent(cc.PhysicsPolygonCollider).points = arr;
         physicsNode.getComponent(cc.PhysicsPolygonCollider).apply();
     },
+
 });
