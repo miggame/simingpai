@@ -29,7 +29,7 @@ cc.Class({
 
     // 只在两个碰撞体开始接触时被调用一次
     onBeginContact(contact, selfCollider, otherCollider) {
-        console.log('开始');
+    
         this._collider = true;
         let normal = contact.getWorldManifold().normal;
 

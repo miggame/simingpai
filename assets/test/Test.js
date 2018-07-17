@@ -28,7 +28,7 @@ cc.Class({
 
     _onMsg(msg, data) {
         if (msg === GameLocalMsg.Msg.Run) {
-            console.log('run');
+            
             if (data === 1) {
 
             } else if (data === -1) {
@@ -102,10 +102,20 @@ cc.Class({
         GameData.gravity.y = -GameData.gravity.y;
         cc.director.getPhysicsManager().gravity = GameData.gravity;
 
-        // UIMgr.playAnim(this.spPlayer, 'roll');
-        UIMgr.playAnim(this.spPlayer, ['jump', 'roll'], 0, function (event) {
-            // console.log('done');
+        UIMgr.playAnim(this.spPlayer, ['jump', 'roll', 'down'], 0, function (event) {
+            console.log('hh');
         });
+
+        // let callBack1 = cc.callFunc(function(){
+        //     this.spPlayer.node.getComponent(cc.Animation).play('jump');
+        //     console.log('1');
+        // }.bind(this), this);
+        // let callBack2 = cc.callFunc(function(){
+        //     this.spPlayer.node.getComponent(cc.Animation).play('roll');
+        //     console.log('2');
+        // }.bind(this), this);
+        // this.spPlayer.node.runAction(cc.sequence(callBack1, callBack2));
+        // this.spPlayer.node.runAction(callBack1);
 
     },
 
